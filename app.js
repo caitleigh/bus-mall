@@ -32,22 +32,22 @@ function generateImages() {
   picOne.alt = picArray[index].alt;
   picArray[index].viewed ++;
 
+  var index2 = randomIndex(picArray.length);
+
   while (index2 === index) {
     index2 = randomIndex(picArray.length);
   }
-
-  var index2 = randomIndex(picArray.length);
   picTwo.src = picArray[index2].src;
   picTwo.title = picArray[index2].title;
   picTwo.alt = picArray[index2].alt;
   picArray[index2].viewed ++;
 
+  var index3 = randomIndex(picArray.length);
 
   while (index3 === index || index3 === index2) {
     index3 = randomIndex(picArray.length);
   }
 
-  var index3 = randomIndex(picArray.length);
   picThree.src = picArray[index3].src;
   picThree.title = picArray[index3].title;
   picThree.alt = picArray[index3].alt;
@@ -63,7 +63,7 @@ function handleClick(event) {
   var vote = event.target.title;
 
   maxCount++;
-  if (maxCount < 25) {
+  if (maxCount < 26) {
     for (var i = 0; i < picArray.length; i++) {
       if(vote === picArray[i].title) {
         picArray[i].clicked++;
