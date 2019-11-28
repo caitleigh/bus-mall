@@ -6,13 +6,13 @@ var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 var picArray = [];
 
-//display images 
+//display images
 
 
 
 //constructor funciton for products
 function Product (src, name) {
-  this.src = '../img/${src}.jpg';
+  this.src = `../img/${src}.jpg`;
   this.title = name;
   this.alt = name;
 
@@ -27,7 +27,25 @@ function randomIndex(max) {
 
 function generateImages() {
   var index = randomIndex(picArray.length);
-  console.log (index);
+  picOne.src = picArray[index].src;
+  picOne.title = picArray[index].title;
+  picOne.alt = picArray[index].title;
+  var index2 = randomIndex(picArray.length);
+  picTwo.src = picArray[index2].src;
+  picTwo.title = picArray[index].title;
+  picTwo.alt = picArray[index].title;
+  while (index2 === index) {
+    index2 = randomIndex(picArray.length);
+  }
+  var index3 = randomIndex(picArray.length);
+  picThree.src = picArray[index3].src;
+  picThree.title = picArray[index].title;
+  picThree.alt = picArray[index].title;
+
+  while (index3 === index || index3 === index2) {
+    index3 = randomIndex(picArray.length);
+  }
+  console.log (index, index2, index3);
 
 }
 
@@ -54,7 +72,6 @@ function createOnPageLoad() {
   new Product ('wine-glass','wine glass');
 }
 
-generateImages();
 
 
 createOnPageLoad();
@@ -63,4 +80,5 @@ console.table(picArray);
 
 console.log (generateImages());
 
+generateImages();
 
