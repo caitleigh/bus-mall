@@ -5,6 +5,7 @@ var picOne = document.getElementById('picture1');
 var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 var productOptions = document.getElementById('product-options');
+var maxCount = 0;
 var picArray = [];
 
 //constructor funciton for products
@@ -31,6 +32,9 @@ function generateImages() {
   picOne.alt = picArray[index].alt;
   picArray[index].viewed ++;
 
+  while (index2 === index) {
+    index2 = randomIndex(picArray.length);
+  }
 
   var index2 = randomIndex(picArray.length);
   picTwo.src = picArray[index2].src;
@@ -38,8 +42,9 @@ function generateImages() {
   picTwo.alt = picArray[index2].alt;
   picArray[index2].viewed ++;
 
-  while (index2 === index) {
-    index2 = randomIndex(picArray.length);
+
+  while (index3 === index || index3 === index2) {
+    index3 = randomIndex(picArray.length);
   }
 
   var index3 = randomIndex(picArray.length);
@@ -49,9 +54,6 @@ function generateImages() {
   picArray[index3].viewed ++;
 
 
-  while (index3 === index && index3 === index2) {
-    index3 = randomIndex(picArray.length);
-  }
   console.log (index, index2, index3);
 }
 
@@ -59,15 +61,19 @@ function generateImages() {
 
 function handleClick(event) {
   var vote = event.target.title;
-  console.log (vote, 'was clicked');
-  for (var i = 0; i < picArray.length; i++) {
-    if(vote === picArray[i].title) {
-      picArray[i].clicked++;
+
+  maxCount++;
+  if (maxCount < 25) {
+    for (var i = 0; i < picArray.length; i++) {
+      if(vote === picArray[i].title) {
+        picArray[i].clicked++;
+      }
     }
+    generateImages();
   }
-  generateImages();
   console.table(picArray);
 }
+
 
 function createOnPageLoad() {
   new Product('bag', 'bag');
