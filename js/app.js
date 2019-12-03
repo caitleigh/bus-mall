@@ -5,7 +5,7 @@ var picOne = document.getElementById('picture1');
 var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 var productOptions = document.getElementById('product-options');
-var maxCount = 0;
+var maxCount = 25;
 var picArray = [];
 
 //constructor funciton for products
@@ -60,18 +60,33 @@ function generateImages() {
 //add an event listener
 
 function handleClick(event) {
-  var vote = event.target.title;
-
-  maxCount++;
-  if (maxCount < 26) {
+  maxCount--;
+  if(maxCount !== 0) {
+    var vote = event.target.title;
     for (var i = 0; i < picArray.length; i++) {
       if(vote === picArray[i].title) {
         picArray[i].clicked++;
       }
     }
     generateImages();
+    console.table(picArray);
+  } else {
+    productOptions.removeEventListener('click', handleClick);
+    voterResults();
+    console.log('voting complete');
   }
-  console.table(picArray);
+}
+
+function voterResults () {
+  var results = document.getElementById('results');
+  var ulEl = document.createElement('ul');
+
+  for (var i = 0; i < picArray.length ; i++) {
+    var liEl = document.createElement('li');
+    liEl.textContent = `${picArray[i].clicked} clicked and ${picArray[i].viewed} views`;
+    ulEl.appendChild(liEl);
+  }
+  results.appendChild(ulEl);
 }
 
 

@@ -1,0 +1,13 @@
+
+#product-options {
+	width: 900px;
+	margin: auto;
+}
+
+#picture1, #picture2, #picture3 {
+	height: 250px;
+	border-radius: 25px;
+	border: solid;
+	border-color: black;
+
+}
