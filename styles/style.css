@@ -1,4 +1,8 @@
 
+body {
+	width:960px;
+}
+
 #product-options {
 	width: 900px;
 	margin: auto;
@@ -10,4 +14,13 @@
 	border: solid;
 	border-color: black;
 
+}
+
+ul {
+	width: 50%;
+	margin: auto;
+}
+
+li {
+	margin: 10px 0;
 }

@@ -5,6 +5,8 @@ var picOne = document.getElementById('picture1');
 var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 var productOptions = document.getElementById('product-options');
+var results = document.getElementById('results');
+var picArrayContainers = [picOne, picTwo, picThree];
 var maxCount = 25;
 var picArray = [];
 
@@ -26,35 +28,21 @@ function randomIndex(max) {
 }
 
 function generateImages() {
-  var index = randomIndex(picArray.length);
-  picOne.src = picArray[index].src;
-  picOne.title = picArray[index].title;
-  picOne.alt = picArray[index].alt;
-  picArray[index].viewed ++;
+  var currentImages = [];
+  for (var i = 0; i <picArrayContainers.length; i++) {
+    var currentRandoIndex = randomIndex(picArray.length);
+    while (currentImages.includes(currentRandoIndex)) {
+      currentRandoIndex = randomIndex(picArray.length);
+    }
+    currentImages.push(currentRandoIndex);
 
-  var index2 = randomIndex(picArray.length);
-
-  while (index2 === index) {
-    index2 = randomIndex(picArray.length);
-  }
-  picTwo.src = picArray[index2].src;
-  picTwo.title = picArray[index2].title;
-  picTwo.alt = picArray[index2].alt;
-  picArray[index2].viewed ++;
-
-  var index3 = randomIndex(picArray.length);
-
-  while (index3 === index || index3 === index2) {
-    index3 = randomIndex(picArray.length);
+    picArrayContainers[i].src = picArray[currentRandoIndex].src;
+    picArrayContainers[i].title = picArray[currentRandoIndex].title;
+    picArrayContainers[i].alt = picArray[currentRandoIndex].alt;
+    picArray[currentRandoIndex].viewed++;
   }
 
-  picThree.src = picArray[index3].src;
-  picThree.title = picArray[index3].title;
-  picThree.alt = picArray[index3].alt;
-  picArray[index3].viewed ++;
-
-
-  console.log (index, index2, index3);
+  console.table(picArray);
 }
 
 //add an event listener
@@ -77,16 +65,25 @@ function handleClick(event) {
   }
 }
 
+// function show(elem) {
+//   elem.style.display = 'block';
+// }
+
+function hide(elem) {
+  elem.style.display = 'none';
+}
+
 function voterResults () {
-  var results = document.getElementById('results');
+
   var ulEl = document.createElement('ul');
 
   for (var i = 0; i < picArray.length ; i++) {
     var liEl = document.createElement('li');
-    liEl.textContent = `${picArray[i].clicked} clicked and ${picArray[i].viewed} views`;
+    liEl.textContent = `${picArray[i].title}: ${picArray[i].clicked} clicked and ${picArray[i].viewed} views`;
     ulEl.appendChild(liEl);
   }
   results.appendChild(ulEl);
+  hide (productOptions);
 }
 
 
@@ -120,3 +117,6 @@ productOptions.addEventListener('click', handleClick);
 generateImages();
 
 console.table(picArray);
+
+
+
