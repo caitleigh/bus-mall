@@ -10,6 +10,7 @@ var chartContainer = document.getElementById('chart');
 var picArrayContainers = [picOne, picTwo, picThree];
 var maxCount = 25;
 var picArray = [];
+var picDupeArray = [];
 var picNames = [];
 var picViews = [];
 var picClicks = [];
@@ -34,8 +35,8 @@ function generateImages() {
   var currentImages = [];
   for (var i = 0; i <picArrayContainers.length; i++) {
     var currentRandoIndex = randomIndex(picArray.length);
-    
-    while (currentImages.includes(currentRandoIndex)) {
+
+    while (currentImages.includes(currentRandoIndex) || picDupeArray.includes(currentRandoIndex)) {
       currentRandoIndex = randomIndex(picArray.length);
     }
     currentImages.push(currentRandoIndex);
@@ -44,8 +45,8 @@ function generateImages() {
     picArrayContainers[i].title = picArray[currentRandoIndex].title;
     picArrayContainers[i].alt = picArray[currentRandoIndex].alt;
     picArray[currentRandoIndex].viewed++;
-
   }
+  picDupeArray = currentImages;
 
   // console.table(picArray);
 }
