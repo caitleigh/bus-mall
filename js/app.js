@@ -5,7 +5,7 @@ var picOne = document.getElementById('picture1');
 var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 var productOptions = document.getElementById('product-options');
-var results = document.getElementById('results');
+// var results = document.getElementById('results');
 var chartContainer = document.getElementById('chart');
 var picArrayContainers = [picOne, picTwo, picThree];
 var maxCount = 25;
@@ -31,6 +31,8 @@ function randomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
+//function to generate images
+
 function generateImages() {
   var currentImages = [];
   for (var i = 0; i <picArrayContainers.length; i++) {
@@ -51,6 +53,7 @@ function generateImages() {
   // console.table(picArray);
 }
 
+// Function that pushes click, views, and names into arrays to be used in chart
 function dataInArrays () {
   for (var i = 0; i < picArray.length; i++) {
     picNames.push(picArray[i].title);
@@ -58,7 +61,7 @@ function dataInArrays () {
     picClicks.push(picArray[i].clicked);
   }
 }
-//add an event listener
+//Event listener that allows user to click on preferred product
 
 function handleClick(event) {
   maxCount--;
@@ -72,14 +75,22 @@ function handleClick(event) {
     generateImages();
     // console.table(picArray);
 
+
   } else {
+    var stringPicArr = JSON.stringify(picArray);
+    localStorage.setItem('picArr', stringPicArr);
+
     productOptions.removeEventListener('click', handleClick);
+    hide(productOptions);
     dataInArrays ();
     makeChart();
-    // voterResults();
     console.log('voting complete');
   }
+
 }
+
+//Store votes in local storage
+
 
 // function show(elem) {
 //   elem.style.display = 'block';
@@ -101,6 +112,14 @@ function hide(elem) {
 //   results.appendChild(ulEl);
 //   hide (productOptions);
 // }
+
+// function createCanvas() {
+
+// }
+
+// chartContainer.innerHTML = '';
+
+// createCanvas();
 
 var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -141,34 +160,51 @@ function makeChart(){
   });
 }
 
-function createOnPageLoad() {
-  new Product('bag', 'bag');
-  new Product ('banana', 'banana');
-  new Product ('bathroom', 'bathroom');
-  new Product ('boots', 'boots');
-  new Product ('breakfast', 'breakfast');
-  new Product ('bubblegum', 'bubblegum');
-  new Product ('chair', 'chair');
-  new Product ('cthulhu', 'cthulhu');
-  new Product ('dog-duck', 'dog duck');
-  new Product ('dragon', 'dragon');
-  new Product ('pen', 'pen');
-  new Product ('pet-sweep', 'pet sweep');
-  new Product ('scissors', 'scissors');
-  new Product ('shark', 'shark');
-  new Product ('sweep', 'sweep');
-  new Product ('tauntaun', 'tauntaun');
-  new Product ('unicorn', 'unicorn');
-  new Product ('usb', 'usb');
-  new Product ('water-can', 'water-can');
-  new Product ('wine-glass','wine glass');
-}
+// //Retrieve Local Storage
 
+
+
+function pageRefresh () {
+  if (localStorage.getItem('picArr')) {
+    var getPicArr = localStorage.getItem('picArr');
+    var parsedPicArr = JSON.parse(getPicArr);
+    picArray = parsedPicArr;
+
+    // picViews = [];
+    // picClicks = [];
+    // picNames = [];
+  }
+}
+function createOnPageLoad() {
+
+  if (picArray.length === 0){
+    new Product('bag', 'bag');
+    new Product ('banana', 'banana');
+    new Product ('bathroom', 'bathroom');
+    new Product ('boots', 'boots');
+    new Product ('breakfast', 'breakfast');
+    new Product ('bubblegum', 'bubblegum');
+    new Product ('chair', 'chair');
+    new Product ('cthulhu', 'cthulhu');
+    new Product ('dog-duck', 'dog duck');
+    new Product ('dragon', 'dragon');
+    new Product ('pen', 'pen');
+    new Product ('pet-sweep', 'pet sweep');
+    new Product ('scissors', 'scissors');
+    new Product ('shark', 'shark');
+    new Product ('sweep', 'sweep');
+    new Product ('tauntaun', 'tauntaun');
+    new Product ('unicorn', 'unicorn');
+    new Product ('usb', 'usb');
+    new Product ('water-can', 'water-can');
+    new Product ('wine-glass','wine glass');
+  }
+  pageRefresh();
+}
 
 createOnPageLoad();
 productOptions.addEventListener('click', handleClick);
 
 generateImages();
 
-console.log('views', picViews);
 // console.table(picArray);
