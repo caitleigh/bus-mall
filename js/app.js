@@ -104,7 +104,7 @@ function makeChart(){
       labels: picNames,
       datasets: [{
         label: 'Item Views',
-        backgroundColor: 'rgb(255, 99, 132)',
+        backgroundColor: '',
         borderColor: 'rgb(255, 99, 132)',
         data: picViews,
       },
