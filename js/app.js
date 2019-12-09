@@ -5,8 +5,6 @@ var picOne = document.getElementById('picture1');
 var picTwo = document.getElementById('picture2');
 var picThree = document.getElementById('picture3');
 var productOptions = document.getElementById('product-options');
-// var results = document.getElementById('results');
-var chartContainer = document.getElementById('chart');
 var picArrayContainers = [picOne, picTwo, picThree];
 var maxCount = 25;
 var picArray = [];
@@ -49,8 +47,6 @@ function generateImages() {
     picArray[currentRandoIndex].viewed++;
   }
   picDupeArray = currentImages;
-
-  // console.table(picArray);
 }
 
 // Function that pushes click, views, and names into arrays to be used in chart
@@ -73,8 +69,6 @@ function handleClick(event) {
       }
     }
     generateImages();
-    // console.table(picArray);
-
 
   } else {
     var stringPicArr = JSON.stringify(picArray);
@@ -89,9 +83,6 @@ function handleClick(event) {
 
 }
 
-//Store votes in local storage
-
-
 // function show(elem) {
 //   elem.style.display = 'block';
 // }
@@ -99,27 +90,6 @@ function handleClick(event) {
 function hide(elem) {
   elem.style.display = 'none';
 }
-
-// function voterResults () {
-
-//   var ulEl = document.createElement('ul');
-
-//   for (var i = 0; i < picArray.length ; i++) {
-//     var liEl = document.createElement('li');
-//     liEl.textContent = `${picArray[i].title}: ${picArray[i].clicked} clicked and ${picArray[i].viewed} views`;
-//     ulEl.appendChild(liEl);
-//   }
-//   results.appendChild(ulEl);
-//   hide (productOptions);
-// }
-
-// function createCanvas() {
-
-// }
-
-// chartContainer.innerHTML = '';
-
-// createCanvas();
 
 var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -148,31 +118,15 @@ function makeChart(){
 
     // Configuration options go here
     options: {
-      // scales: {
-      //   xAxes: [{
-      //     stacked: true
-      //   }],
-      //   yAxes: [{
-      //     stacked:true
-      //   }]
-      // }
     }
   });
 }
-
-// //Retrieve Local Storage
-
-
 
 function pageRefresh () {
   if (localStorage.getItem('picArr')) {
     var getPicArr = localStorage.getItem('picArr');
     var parsedPicArr = JSON.parse(getPicArr);
     picArray = parsedPicArr;
-
-    // picViews = [];
-    // picClicks = [];
-    // picNames = [];
   }
 }
 function createOnPageLoad() {
